@@ -1,5 +1,5 @@
 {
-  "machine": { "gpu": 1, "vram": 8000, "cpu": 6000, "ram": 6000 },
+  "machine": { "gpu": 1, "vram": 8000, "cpu": 1000, "ram": 8000 },
   "job": {
     "APIVersion": "V1beta1",
     "Spec": {
@@ -8,17 +8,22 @@
         "WorkingDirectory": "/app",
         "Entrypoint": ["python", "/app/src/run_inference.py"],
         "EnvironmentVariables": [
-          "INPUT={{ js .input }}",
-          "PROMPT_TEXT={{ js .prompt_text | default \"You can generate a customized voice by adjusting parameters such as pitch and speed\" }}",
-          "PROMPT_SPEECH_PATH={{ js .prompt_speech_path | default \"/app/audio/voice.wav\" }}"
+          {{ if .input }}"INPUT={{ js .input }}"{{ else }}"INPUT=Hello, this is a test of the text to speech system."{{ end }},
+          {{ if .prompt_text }}"PROMPT_TEXT={{ js .prompt_text }}"{{ else }}"PROMPT_TEXT=You can generate a customized voice by adjusting parameters such as pitch and speed"{{ end }},
+          {{ if .prompt_speech_path }}"PROMPT_SPEECH_PATH={{ js .prompt_speech_path }}"{{ else }}"PROMPT_SPEECH_PATH=/app/audio/voice.wav"{{ end }}
         ],
-        "Image": "texttospeech:v1"
+        "Image": "jamiebones/texttospeech:v1"
       },
       "Engine": "Docker",
       "Network": { "Type": "None" },
       "Outputs": [{ "Name": "outputs", "Path": "/outputs" }],
-      "Resources": { "GPU": "1", "CPU": "2", "Memory": "8Gb" },
+      "PublisherSpec": {
+        "Type": "ipfs"
+      },
+      "Resources": { "GPU": "1" },
       "Timeout": 600
     }
   }
 }
+
+
