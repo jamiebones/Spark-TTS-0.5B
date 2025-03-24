@@ -34,5 +34,11 @@ COPY src/run_inference.py /app/run_inference.py
 # Set the working directory back to /app
 WORKDIR /app
 
+# Create the audio directory
+RUN mkdir -p audio
+# Copy the audio file into the expected directory structure
+COPY audio/ /app/audio/
+RUN chmod -R 755 /app/audio/
+
 # Set entrypoint
 ENTRYPOINT ["python", "/app/run_inference.py"]
