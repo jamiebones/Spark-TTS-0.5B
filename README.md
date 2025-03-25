@@ -116,13 +116,45 @@ Running the script with `--no-cache` passed in builds the Docker image without u
 
 This script is provided for convenience to speed up development. It is equivalent to running the Lilypad module with the provided input and private key (unless running the module locally, then no private key is required). Depending on how your module works, you may need to change the default behavior of this script.
 
-#### `--local` Flag
+### Running the module locally on Docker
 
-Running the script with `--local` passed in runs the Lilypad module Docker image locally instead of on Lilypad's Network.
+```bash
+docker run -it --rm \
+  -e INPUT="Your text to convert to speech goes here" \
+  -v $(pwd)/outputs:/outputs \
+  texttospeech:v1
+```
+This will run a container from the `texttospeech:v1` image. This text is converted to speech using the default audio saved /app/audio/voice.wav in the container.
 
-#### `--demonet` Flag
+To clone a voice, you can use the following command:
 
-Running the script with `--demonet` passed in runs the Lilypad module Docker image on Lilypad's Demonet.
+```bash
+docker run -it --rm   -e INPUT="This is a text to speech module"   \
+-e PROMPT_TEXT="This prompt text is the transcript of the voice you want to clone"  \
+-e PROMPT_SPEECH_PATH="/app/audio/voice.wav"  \
+ -v $(pwd)/outputs:/outputs \
+-v $(pwd)/audio:/app/audio \   
+  texttospeech:latest
+
+```
+You mount the audio directory and ensure it contains the voice.wav file. Running the container will use the voice.wav file as the voice for the text to speech module.
+
+
+### Running the module on Lilypad Network
+
+Basic usage:
+
+```bash
+  lilypad run github.com/jamiebones/Spark-TTS-0.5B.git:v1.3  --web3-private-key <private-key> -i input="This is a test of the text to speech system."
+```
+
+This will run the module on Lilypad's Network using the default audio file in the /app/audio/voice.wav directory.
+
+### Clone a voice on Lilypad Network
+
+> Still figuring out how to do this.
+
+
 
 ## Learn More
 
