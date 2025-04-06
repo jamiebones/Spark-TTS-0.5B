@@ -9,8 +9,6 @@
         "Entrypoint": ["python", "/app/run_inference.py"],
         "EnvironmentVariables": [
           {{ if .input }}"INPUT={{ js .input }}"{{ else }}"INPUT=Hello, this is a test of the text to speech system."{{ end }},
-          {{ if .prompt_text }}"PROMPT_TEXT={{ js .prompt_text }}"{{ else }}"PROMPT_TEXT=You can generate a customized voice by adjusting parameters such as pitch and speed"{{ end }},
-          {{ if .prompt_speech_path }}"PROMPT_SPEECH_PATH={{ js .prompt_speech_path }}"{{ else }}"PROMPT_SPEECH_PATH=/app/audio/voice.wav"{{ end }}
         ],
         "Image": "jamiebones/texttospeech:latest"
       },
