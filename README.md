@@ -145,14 +145,10 @@ You mount the audio directory and ensure it contains the voice.wav file. Running
 Basic usage:
 
 ```bash
-  lilypad run github.com/jamiebones/Spark-TTS-0.5B.git:v1.3  --web3-private-key <private-key> -i input="This is a test of the text to speech system."
+  lilypad run github.com/jamiebones/Spark-TTS-0.5B.git:v1.5  --web3-private-key <private-key> -i input="This is a test of the text to speech system."
 ```
 
 This will run the module on Lilypad's Network using the default audio file in the /app/audio/voice.wav directory.
-
-### Clone a voice on Lilypad Network
-
-> Still figuring out how to do this.
 
 
 
