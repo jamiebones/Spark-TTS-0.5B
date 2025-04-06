@@ -8,7 +8,7 @@
         "WorkingDirectory": "/app",
         "Entrypoint": ["python", "/app/run_inference.py"],
         "EnvironmentVariables": [
-          {{ if .input }}"INPUT={{ js .input }}"{{ else }}"INPUT=Hello, this is a test of the text to speech system."{{ end }},
+          {{ if .input }}"INPUT={{ js .input }}"{{ else }}"INPUT=Hello, this is a test of the text to speech system."{{ end }}
         ],
         "Image": "jamiebones/texttospeech:latest"
       },
